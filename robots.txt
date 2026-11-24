@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://cuebert.github.io/gta6-progress/sitemap.xml
