@@ -8,10 +8,17 @@
   root.dataset.theme = saved === 'light' ? 'light' : 'dark';
   document.addEventListener('DOMContentLoaded', () => {
     const button = document.getElementById('theme');
+    const chinese = root.lang === 'zh-Hans';
+    const edition = document.querySelector('.edition');
+    function syncEditionLink() {
+      if (edition) edition.hash = location.hash;
+    }
+    syncEditionLink();
+    window.addEventListener('hashchange', syncEditionLink);
     function render() {
       const dark = root.dataset.theme ? root.dataset.theme === 'dark' : preference.matches;
-      button.textContent = dark ? 'Light mode' : 'Dark mode';
-      button.setAttribute('aria-label', 'Switch to ' + (dark ? 'light' : 'dark') + ' mode');
+      button.textContent = chinese ? (dark ? '浅色' : '深色') : (dark ? 'Light mode' : 'Dark mode');
+      button.setAttribute('aria-label', chinese ? '切换至' + button.textContent + '模式' : 'Switch to ' + (dark ? 'light' : 'dark') + ' mode');
     }
     button.hidden = false;
     button.addEventListener('click', () => {
@@ -39,6 +46,10 @@
         const response = await fetch(url, {cache:'no-cache', credentials:'omit', referrerPolicy:'no-referrer'});
         if (!response.ok) return;
         const edition = new DOMParser().parseFromString(await response.text(), 'text/html');
+        if (edition.documentElement.lang !== root.lang) {
+          location.reload();
+          return;
+        }
         const revision = edition.querySelector('meta[name="journal-updated"]')?.content;
         if (!(Date.parse(revision) > Date.parse(published.content))) return;
         const current = document.querySelector('main');

@@ -38,6 +38,11 @@ img { display: block; max-width: 100%; height: auto; }
 .mast nav a, .mast button { color: var(--quiet); font-size: .86rem; }
 .mast nav a { display: inline-flex; align-items: center; min-height: 2.75rem; text-decoration: none; }
 .mast nav a[aria-current=page] { color: var(--text); text-decoration: underline; text-underline-offset: .37em; }
+.mast nav .edition { color:var(--accent); white-space:nowrap; }
+:lang(zh-Hans) { --sans:"Source Sans 3","Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif; --serif:"Songti SC","Noto Serif CJK SC","SimSun",serif; }
+html[lang=zh-Hans] h1, html[lang=zh-Hans] h2, html[lang=zh-Hans] h3 { letter-spacing:0; line-height:1.23; }
+html[lang=zh-Hans] .story p, html[lang=zh-Hans] .entry p, html[lang=zh-Hans] .plate-head p { line-height:1.75; }
+@media(max-width:570px) { .mast nav { flex-wrap:wrap; } }
 .mast button { background: none; border: 0; border-left: 1px solid var(--line); padding: .2rem 0 .2rem 1.3rem; color: var(--body); cursor: pointer; }
 main.shell:has(.feature) { width: 100%; }
 .feature { margin: 0; }
